@@ -26,6 +26,10 @@ defmodule NewRelixir do
       Application.put_env(:newrelic, :application_name, to_char_list(app_name))
       Application.put_env(:newrelic, :license_key, to_char_list(license_key))
 
+      if (proxy = Application.get_env(:new_relixir, :proxy)) do
+        Application.put_env(:newrelic, :proxy, to_char_list(proxy))
+      end
+
       {:ok, _} = :newrelic_poller.start_link(&:newrelic_statman.poll/0)
     end
 
@@ -37,4 +41,5 @@ defmodule NewRelixir do
   def configured? do
     Application.get_env(:new_relixir, :application_name) != nil && Application.get_env(:new_relixir, :license_key) != nil
   end
+
 end
