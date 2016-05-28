@@ -75,7 +75,7 @@ Phoenix application named `MyApp`.
       def controller do
         quote do
           # ...
-          plug NewRelixir.Plug.Phoenix
+          plug NewRelixir.Plug.PhoenixController
           alias MyApp.Repo.NewRelic, as: Repo # Replaces `alias MyApp.Repo`
         end
       end

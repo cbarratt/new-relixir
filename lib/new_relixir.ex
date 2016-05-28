@@ -22,11 +22,11 @@ defmodule NewRelixir do
 
     :ok = :statman_server.add_subscriber(:statman_aggregator)
 
-    if (app_name = Application.get_env(:new_relixir, :application_name)) && (license_key = Application.get_env(:new_relixir, :license_key)) do
-      Application.put_env(:newrelic, :application_name, to_char_list(app_name))
+    if application_name && license_key do
+      Application.put_env(:newrelic, :application_name, to_char_list(application_name))
       Application.put_env(:newrelic, :license_key, to_char_list(license_key))
 
-      if (proxy = Application.get_env(:new_relixir, :proxy)) do
+      if (proxy) do
         Application.put_env(:newrelic, :proxy, to_char_list(proxy))
       end
 
@@ -39,7 +39,18 @@ defmodule NewRelixir do
   @doc false
   @spec configured? :: boolean
   def configured? do
-    Application.get_env(:new_relixir, :application_name) != nil && Application.get_env(:new_relixir, :license_key) != nil
+    application_name != nil && license_key != nil
   end
 
+  defp license_key do
+    Application.get_env(:new_relixir, :license_key)
+  end
+
+  defp application_name do
+    Application.get_env(:new_relixir, :application_name)
+  end
+
+  defp proxy do
+    Application.get_env(:new_relixir, :proxy)
+  end
 end
