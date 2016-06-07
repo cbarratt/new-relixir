@@ -26,11 +26,11 @@ defmodule NewRelixir.Plug.Instrumentation do
   end
 
   defp put_model(opts, queryable) do
-    case Keyword.fetch(opts, :model) do
+    case Keyword.fetch(opts, :schema) do
       {:ok, _} -> opts
       :error ->
         if model = infer_model(queryable) do
-          Keyword.put(opts, :model, model)
+          Keyword.put(opts, :schema, model)
         else
           opts
         end
@@ -45,8 +45,8 @@ defmodule NewRelixir.Plug.Instrumentation do
     model_name(model_type)
   end
 
-  defp infer_model(%Ecto.Changeset{model: model}) do
-    infer_model(model)
+  defp infer_model(%Ecto.Changeset{schema: schema}) do
+    infer_model(schema)
   end
 
   defp infer_model(%Ecto.Query{from: {_, model_type}}) do
