@@ -44,21 +44,6 @@ defmodule NewRelixir.Transaction do
     record_value!(transaction, :total, elapsed)
   end
 
-  @doc """
-  Records a database query for the current web transaction.
-
-  The query name can either be provided as a raw string or as a tuple containing a model and action
-  name.
-  """
-  @spec record_db(t, query, interval) :: :ok
-  def record_db(%__MODULE__{} = transaction, {model, action}, elapsed) do
-    record_db(transaction, "#{model}.#{action}", elapsed)
-  end
-
-  def record_db(%__MODULE__{} = transaction, query, elapsed) when is_binary(query) do
-    record_value!(transaction, {:db, query}, elapsed)
-  end
-
   defp record_value!(%__MODULE__{name: name}, data, elapsed) do
     :ok = :statman_histogram.record_value({name, data}, elapsed)
   end
