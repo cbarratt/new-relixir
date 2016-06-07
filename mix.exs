@@ -22,7 +22,7 @@ defmodule NewRelixir.Mixfile do
 
   defp deps do
     [{:phoenix, "~> 1.2.0-rc"},
-     {:ecto, "~> 1.1"},
+     {:ecto, "~> 2.0.0-rc"},
      {:newrelic, git: "git@github.com:robertmkhall/newrelic-erlang.git"},
      {:earmark, "~> 0.1", only: :dev},
      {:ex_doc, "~> 0.11", only: :dev}]
