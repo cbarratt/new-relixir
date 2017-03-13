@@ -22,12 +22,12 @@ defmodule NewRelixir do
 
     :ok = :statman_server.add_subscriber(:statman_aggregator)
 
-    if application_name && license_key do
-      Application.put_env(:newrelic, :application_name, to_char_list(application_name))
-      Application.put_env(:newrelic, :license_key, to_char_list(license_key))
+    if application_name() && license_key() do
+      Application.put_env(:newrelic, :application_name, to_char_list(application_name()))
+      Application.put_env(:newrelic, :license_key, to_char_list(license_key()))
 
-      if (proxy) do
-        Application.put_env(:newrelic, :proxy, to_char_list(proxy))
+      if (proxy()) do
+        Application.put_env(:newrelic, :proxy, to_char_list(proxy()))
       end
 
       {:ok, _} = :newrelic_poller.start_link(&:newrelic_statman.poll/0)
@@ -39,7 +39,7 @@ defmodule NewRelixir do
   @doc false
   @spec configured? :: boolean
   def configured? do
-    application_name != nil && license_key != nil
+    application_name() != nil && license_key() != nil
   end
 
   defp license_key do
