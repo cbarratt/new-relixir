@@ -7,12 +7,12 @@ defmodule NewRelixir.Mixfile do
      version: "0.1.0",
      elixir: "~> 1.1",
      description: "New Relic tracking for Elixir applications.",
-     package: package,
+     package: package(),
      source_url: "https://github.com/TheRealReal/new-relixir",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+     aliases: aliases(),
+     deps: deps()]
   end
 
   def application do
